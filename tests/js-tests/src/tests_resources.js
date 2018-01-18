@@ -6,7 +6,7 @@ var ccbjs = "";
 // so the respath will modify to res,
 if (!cc.sys.isNative)
 {
-    if (cc.game.config[cc.game.CONFIG_KEY.engineDir] !== "frameworks/cocos2d-html5") {
+    if (cc.game.config && cc.game.config[cc.game.CONFIG_KEY.engineDir] !== "frameworks/cocos2d-html5") {
         ccbjs = "../../js-tests/resjs/";
     }
     else
@@ -705,7 +705,7 @@ var g_spine = [
     "spine/sprite.png",
     "spine/goblins.png",
     "spine/goblins.atlas",
-    "spine/goblins_mesh.json"
+    "spine/goblins-pro.json"
 ];
 
 if (!cc.sys.isNative) {

@@ -1201,12 +1201,12 @@ void PhysicsDemoSlice::clipPoly(PhysicsShapePolygon* shape, Vec2 normal, float d
     
     Vec2 center = PhysicsShape::getPolygonCenter(points, pointsCount);
     Node* node = Node::create();
-    PhysicsBody* polyon = PhysicsBody::createPolygon(points, pointsCount, PHYSICSBODY_MATERIAL_DEFAULT, -center);
+    PhysicsBody* polygon = PhysicsBody::createPolygon(points, pointsCount, PHYSICSBODY_MATERIAL_DEFAULT, -center);
     node->setPosition(center);
-    node->addComponent(polyon);
-    polyon->setVelocity(body->getVelocityAtWorldPoint(center));
-    polyon->setAngularVelocity(body->getAngularVelocity());
-    polyon->setTag(_sliceTag);
+    node->addComponent(polygon);
+    polygon->setVelocity(body->getVelocityAtWorldPoint(center));
+    polygon->setAngularVelocity(body->getAngularVelocity());
+    polygon->setTag(_sliceTag);
     addChild(node);
     
     delete[] points;
@@ -1597,6 +1597,7 @@ void PhysicsSetGravityEnableTest::onEnter()
     // common box
     auto commonBox = makeBox(Vec2(100, 100), Size(50, 50), 1);
     commonBox->getPhysicsBody()->setTag(DRAG_BODYS_TAG);
+    commonBox->getPhysicsBody()->setGravityEnable(true);
     addChild(commonBox);
     
     auto box = makeBox(Vec2(200, 100), Size(50, 50), 2);
@@ -1622,7 +1623,7 @@ void PhysicsSetGravityEnableTest::onScheduleOnce(float /*delta*/)
     auto ball = getChildByTag(2);
     ball->getPhysicsBody()->setMass(200);
     
-    _physicsWorld->setGravity(Vec2(0, 98));
+    _physicsWorld->setGravity(Vec2(0, -98));
 }
 
 std::string PhysicsSetGravityEnableTest::title() const
@@ -1715,7 +1716,7 @@ void PhysicsFixedUpdate::onEnter()
 {
     PhysicsDemo::onEnter();
     
-    _physicsWorld->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+    toggleDebug();
     _physicsWorld->setGravity(Point::ZERO);
     
     // wall
